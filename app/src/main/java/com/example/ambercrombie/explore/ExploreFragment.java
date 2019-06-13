@@ -13,9 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.ambercrombie.R;
+import com.example.ambercrombie.dagger.components.DaggerExploreComponent;
+import com.example.ambercrombie.dagger.modules.ExploreModule;
+import com.example.ambercrombie.dagger.modules.NetModule;
 import com.example.ambercrombie.data.Explorative;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,14 +30,17 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
     @BindView(R.id.exploreList)
     RecyclerView recyclerView;
 
-    private ExploreContract.EPresenter presenter;
+    @Inject
+    ExploreContract.EPresenter presenter;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new ExplorePresenter();
-        presenter.attachView(this);
+        DaggerExploreComponent.builder().
+                exploreModule(new ExploreModule())
+                .netModule(new NetModule(ExplorePresenter.url))
+                .build().inject(this);
     }
 
     @Nullable
@@ -40,10 +48,19 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         ButterKnife.bind(this,view);
-        presenter.getCards();
+        if(presenter != null){
+            presenter.attachView(this);
+            presenter.getCards();
+        }
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        if(presenter != null)
+            presenter.detachView();
+        super.onDestroy();
+    }
 
     /**
      * Called from presenter shows sent string.
@@ -60,6 +77,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
      */
     @Override
     public void sendResult(List<Explorative> list) {
+        if(recyclerView == null)
+            return;
         ExploreAdapter adapter = new ExploreAdapter(list,getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setAdapter(adapter);

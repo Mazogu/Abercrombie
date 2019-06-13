@@ -34,16 +34,15 @@ public class RetrofitHelper {
      * @param url Base url
      * @return
      */
-    public static Observable<List<Explorative>> getExploratives(String url){
-        RetrofitService service = Factory.getRetrofit(url).create(RetrofitService.class);
-        return service.getExploratives();
+    public static RetrofitService getService(String url){
+        return Factory.getRetrofit(url).create(RetrofitService.class);
     }
 
 
     /**
      * Creates GET request.
      */
-    private interface RetrofitService{
+    public interface RetrofitService{
         @Headers({
                 "Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                 "User-Agent: Ambie"

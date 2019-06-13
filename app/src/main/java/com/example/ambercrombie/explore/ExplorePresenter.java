@@ -2,10 +2,15 @@ package com.example.ambercrombie.explore;
 
 import com.example.ambercrombie.BasePresenter;
 import com.example.ambercrombie.BaseView;
+import com.example.ambercrombie.dagger.components.DaggerExploreComponent;
+import com.example.ambercrombie.dagger.modules.ExploreModule;
+import com.example.ambercrombie.dagger.modules.NetModule;
 import com.example.ambercrombie.data.Explorative;
 import com.example.ambercrombie.retrofit.RetrofitHelper;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
@@ -17,8 +22,19 @@ import static com.example.ambercrombie.explore.ExploreContract.*;
 
 public class ExplorePresenter implements EPresenter {
 
-    private final static String url = "https://www.abercrombie.com/";
+    public final static String url = "https://www.abercrombie.com/";
     private EView view;
+
+
+    public ExplorePresenter(){
+        DaggerExploreComponent.builder().
+                netModule(new NetModule(url)).
+                exploreModule(new ExploreModule()).
+                build().inject(this);
+    }
+
+    @Inject
+    RetrofitHelper.RetrofitService service;
 
     /**
      * Gets Abstract reference to the fragment it communicates to;
@@ -29,12 +45,18 @@ public class ExplorePresenter implements EPresenter {
         this.view = view;
     }
 
+    @Override
+    public void detachView() { this.view = null; }
+
     /**
      * Uses an observer to get emitted list to display and returns it to the fragment.
      */
     @Override
     public void getCards() {
-        RetrofitHelper.getExploratives(url).subscribeOn(Schedulers.io())
+        if(service == null || service.getExploratives() == null)
+            return;
+
+        service.getExploratives().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Explorative>>() {
                     @Override
@@ -44,13 +66,15 @@ public class ExplorePresenter implements EPresenter {
 
                     @Override
                     public void onNext(List<Explorative> exploratives) {
-                        view.sendResult(exploratives);
+                        if(view != null)
+                            view.sendResult(exploratives);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        view.showError("Something went wrong. Check log.");
+                        if(view != null)
+                            view.showError("Something went wrong. Check log.");
                     }
 
                     @Override
