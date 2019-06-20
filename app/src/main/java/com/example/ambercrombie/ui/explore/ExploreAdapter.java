@@ -1,11 +1,10 @@
-package com.example.ambercrombie.explore;
+package com.example.ambercrombie.ui.explore;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.ambercrombie.R;
 import com.example.ambercrombie.data.Content;
 import com.example.ambercrombie.data.Explorative;
-import com.example.ambercrombie.webview.WebActivity;
+import com.example.ambercrombie.ui.webview.WebActivity;
 
 import java.util.List;
 
@@ -47,37 +46,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreH
         Explorative explorative = exploratives.get(i);
         Glide.with(context).load(explorative.getBackgroundImage()).into(exploreHolder.image);
 
-        if(explorative.getTopDescription() != null && !explorative.getTopDescription().equals(""))
-            exploreHolder.topDescription.setText(explorative.getTopDescription());
-        else
-            exploreHolder.topDescription.setVisibility(View.GONE);
-
-        if(explorative.getTitle() != null && !explorative.getTitle().equals(""))
-            exploreHolder.title.setText(explorative.getTitle());
-        else
-            exploreHolder.title.setVisibility(View.GONE);
-
-        if(explorative.getPromoMessage() != null && !explorative.getPromoMessage().equals(""))
-            exploreHolder.promo.setText(explorative.getPromoMessage());
-        else
-            exploreHolder.promo.setVisibility(View.GONE);
-
-        if(explorative.getBottomDescription() != null && !explorative.getBottomDescription().equals("")){
-            exploreHolder.bottomDescription.setText(Html.fromHtml(explorative.getBottomDescription(),Html.FROM_HTML_MODE_COMPACT));
-            final URLSpan[] url = exploreHolder.bottomDescription.getUrls();
-            if(url != null && url.length > 0){
-                exploreHolder.bottomDescription.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context,WebActivity.class);
-                        intent.putExtra(WebActivity.WEB_INTENT, url[0] != null ? url[0].getURL() : "");
-                        context.startActivity(intent);
-                    }
-                });
-            }
-        }
-        else
-            exploreHolder.bottomDescription.setVisibility(View.GONE);
+        setView(exploreHolder.topDescription,explorative.getTopDescription());
+        setView(exploreHolder.title,explorative.getTitle());
+        setView(exploreHolder.promo,explorative.getPromoMessage());
+        setView(exploreHolder.bottomDescription,explorative.getBottomDescription());
 
 
         if(explorative.getContent() != null){
@@ -105,6 +77,30 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreH
     @Override
     public int getItemCount() {
         return exploratives.size();
+    }
+
+    private void setView(TextView view, String text){
+        if(text != null && !text.equals("")){
+            if(view.getId() != R.id.bottomDescription)
+                view.setText(text);
+            else {
+                view.setText(Html.fromHtml(text,Html.FROM_HTML_MODE_COMPACT));
+                final URLSpan[] url = view.getUrls();
+                if(url != null && url.length > 0){
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context,WebActivity.class);
+                            intent.putExtra(WebActivity.WEB_INTENT, url[0] != null ? url[0].getURL() : "");
+                            context.startActivity(intent);
+                        }
+                    });
+                }
+            }
+        }
+        else
+            view.setVisibility(View.GONE);
+
     }
 
     class ExploreHolder extends RecyclerView.ViewHolder{

@@ -1,7 +1,7 @@
-package com.example.ambercrombie.explore;
+package com.example.ambercrombie.ui.explore;
 
-import com.example.ambercrombie.BasePresenter;
-import com.example.ambercrombie.BaseView;
+import com.example.ambercrombie.ui.BasePresenter;
+import com.example.ambercrombie.ui.BaseView;
 import com.example.ambercrombie.data.Explorative;
 
 import java.util.List;

@@ -1,12 +1,13 @@
-package com.example.ambercrombie;
+package com.example.ambercrombie.ui.explore;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.ambercrombie.explore.ExploreFragment;
+import com.example.ambercrombie.R;
+import com.example.ambercrombie.ui.explore.ExploreFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class ExploreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

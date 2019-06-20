@@ -1,4 +1,4 @@
-package com.example.ambercrombie.retrofit;
+package com.example.ambercrombie.network.retrofit;
 
 import com.example.ambercrombie.data.Explorative;
 

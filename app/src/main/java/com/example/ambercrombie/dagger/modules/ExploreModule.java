@@ -1,7 +1,7 @@
 package com.example.ambercrombie.dagger.modules;
 
-import com.example.ambercrombie.explore.ExploreContract;
-import com.example.ambercrombie.explore.ExplorePresenter;
+import com.example.ambercrombie.ui.explore.ExploreContract;
+import com.example.ambercrombie.ui.explore.ExplorePresenter;
 
 import javax.inject.Singleton;
 

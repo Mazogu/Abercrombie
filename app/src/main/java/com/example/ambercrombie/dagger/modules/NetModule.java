@@ -1,6 +1,6 @@
 package com.example.ambercrombie.dagger.modules;
 
-import com.example.ambercrombie.retrofit.RetrofitHelper;
+import com.example.ambercrombie.network.retrofit.RetrofitHelper;
 
 import javax.inject.Singleton;
 

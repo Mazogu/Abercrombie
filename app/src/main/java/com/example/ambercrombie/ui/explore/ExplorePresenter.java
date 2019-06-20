@@ -1,24 +1,21 @@
-package com.example.ambercrombie.explore;
+package com.example.ambercrombie.ui.explore;
 
-import com.example.ambercrombie.BasePresenter;
-import com.example.ambercrombie.BaseView;
 import com.example.ambercrombie.dagger.components.DaggerExploreComponent;
 import com.example.ambercrombie.dagger.modules.ExploreModule;
 import com.example.ambercrombie.dagger.modules.NetModule;
 import com.example.ambercrombie.data.Explorative;
-import com.example.ambercrombie.retrofit.RetrofitHelper;
+import com.example.ambercrombie.network.retrofit.RetrofitHelper;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.example.ambercrombie.explore.ExploreContract.*;
+import static com.example.ambercrombie.ui.explore.ExploreContract.*;
 
 public class ExplorePresenter implements EPresenter {
 
