@@ -29,7 +29,6 @@ public class WebActivity extends AppCompatActivity {
         if(intent != null){
             String url = intent.getStringExtra(WEB_INTENT);
             url = url.replace("\\", "").replace("\"","");
-            Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
             webView.loadUrl(url);
         }
     }
