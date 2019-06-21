@@ -12,10 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.ambercrombie.R;
-import com.example.ambercrombie.dagger.components.DaggerExploreComponent;
+import com.example.ambercrombie.dagger.components.AppComponent;
 import com.example.ambercrombie.dagger.modules.ExploreModule;
 import com.example.ambercrombie.dagger.modules.NetModule;
 import com.example.ambercrombie.data.Explorative;
+import com.example.ambercrombie.ui.AbercrombieApp;
 
 import java.util.List;
 
@@ -36,10 +37,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerExploreComponent.builder().
-                exploreModule(new ExploreModule())
-                .netModule(new NetModule(ExplorePresenter.url))
-                .build().inject(this);
+        getAppComponent().inject(this);
     }
 
     @Nullable
@@ -68,6 +66,11 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
     @Override
     public void showError(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public AppComponent getAppComponent() {
+        return ((AbercrombieApp)getActivity().getApplication()).getAppComponent();
     }
 
     /**

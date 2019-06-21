@@ -52,24 +52,32 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreH
         setView(exploreHolder.bottomDescription,explorative.getBottomDescription());
 
 
+        exploreHolder.content.removeAllViews();
         if(explorative.getContent() != null){
+            exploreHolder.content.setVisibility(View.VISIBLE);
             for (final Content content: explorative.getContent()) {
                 Button button = new Button(context);
                 button.setText(content.getTitle());
                 button.setTextSize(15);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.topMargin = 15;
+                params.bottomMargin = 5;
+                button.setLayoutParams(params);
+                button.setBackgroundResource(R.drawable.button_shape);
                 button.setTag(content.getTitle());
-                if(exploreHolder.content.findViewWithTag(button.getTag()) == null){
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(context, WebActivity.class);
-                            intent.putExtra(WebActivity.WEB_INTENT, content.getTarget());
-                            context.startActivity(intent);
-                        }
-                    });
-                    exploreHolder.content.addView(button);
-                }
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, WebActivity.class);
+                        intent.putExtra(WebActivity.WEB_INTENT, content.getTarget());
+                        context.startActivity(intent);
+                    }
+                });
+                exploreHolder.content.addView(button);
             }
+        }
+        else {
+            exploreHolder.content.setVisibility(View.GONE);
         }
 
     }
@@ -81,8 +89,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreH
 
     private void setView(TextView view, String text){
         if(text != null && !text.equals("")){
-            if(view.getId() != R.id.bottomDescription)
+            if(view.getId() != R.id.bottomDescription){
                 view.setText(text);
+                view.setVisibility(View.VISIBLE);
+            }
             else {
                 view.setText(Html.fromHtml(text,Html.FROM_HTML_MODE_COMPACT));
                 final URLSpan[] url = view.getUrls();
@@ -95,6 +105,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreH
                             context.startActivity(intent);
                         }
                     });
+                    view.setVisibility(View.VISIBLE);
                 }
             }
         }

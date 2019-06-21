@@ -1,5 +1,6 @@
 package com.example.ambercrombie.dagger.modules;
 
+import com.example.ambercrombie.network.ApiService;
 import com.example.ambercrombie.network.retrofit.RetrofitHelper;
 
 import javax.inject.Singleton;
@@ -21,4 +22,8 @@ public class NetModule {
     RetrofitHelper.RetrofitService providesService(){
        return RetrofitHelper.getService(baseUrl);
     }
+
+    @Provides
+    @Singleton
+    ApiService providesApiService(){return new ApiService();}
 }

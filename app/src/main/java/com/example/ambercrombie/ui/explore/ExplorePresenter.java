@@ -1,37 +1,23 @@
 package com.example.ambercrombie.ui.explore;
 
-import com.example.ambercrombie.dagger.components.DaggerExploreComponent;
-import com.example.ambercrombie.dagger.modules.ExploreModule;
-import com.example.ambercrombie.dagger.modules.NetModule;
 import com.example.ambercrombie.data.Explorative;
-import com.example.ambercrombie.network.retrofit.RetrofitHelper;
-
+import com.example.ambercrombie.network.ApiCallBack;
+import com.example.ambercrombie.network.ApiService;
 import java.util.List;
-
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
 import static com.example.ambercrombie.ui.explore.ExploreContract.*;
 
-public class ExplorePresenter implements EPresenter {
+public class ExplorePresenter implements EPresenter, ApiCallBack {
 
-    public final static String url = "https://www.abercrombie.com/";
     private EView view;
+
+    @Inject
+    ApiService service;
 
 
     public ExplorePresenter(){
-        DaggerExploreComponent.builder().
-                netModule(new NetModule(url)).
-                exploreModule(new ExploreModule()).
-                build().inject(this);
-    }
 
-    @Inject
-    RetrofitHelper.RetrofitService service;
+    }
 
     /**
      * Gets Abstract reference to the fragment it communicates to;
@@ -40,6 +26,8 @@ public class ExplorePresenter implements EPresenter {
     @Override
     public void attachView(EView view) {
         this.view = view;
+        view.getAppComponent().inject(this);
+        service.setCallBack(this,view.getAppComponent());
     }
 
     @Override
@@ -50,34 +38,13 @@ public class ExplorePresenter implements EPresenter {
      */
     @Override
     public void getCards() {
-        if(service == null || service.getExploratives() == null)
+        if(service == null)
             return;
+        service.requestData();
+    }
 
-        service.getExploratives().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Explorative>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Explorative> exploratives) {
-                        if(view != null)
-                            view.sendResult(exploratives);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        if(view != null)
-                            view.showError("Something went wrong. Check log.");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+    @Override
+    public void sendData(List<Explorative> list) {
+        view.sendResult(list);
     }
 }
