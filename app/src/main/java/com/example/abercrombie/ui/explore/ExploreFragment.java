@@ -43,11 +43,15 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         ButterKnife.bind(this,view);
+        makeRestCall();
+        return view;
+    }
+
+    protected void makeRestCall() {
         if(presenter != null){
             presenter.attachView(this);
             presenter.getCards();
         }
-        return view;
     }
 
     @Override
@@ -77,7 +81,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
      */
     @Override
     public void sendResult(List<Explorative> list) {
-        if(recyclerView == null)
+        if(recyclerView == null || list == null)
             return;
         ExploreAdapter adapter = new ExploreAdapter(list,getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);

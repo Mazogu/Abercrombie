@@ -25,7 +25,7 @@ public class WebActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        if(intent != null){
+        if(intent != null && intent.getStringExtra(WEB_INTENT) != null){
             String url = intent.getStringExtra(WEB_INTENT);
             url = url.replace("\\", "").replace("\"","");
             webView.loadUrl(url);

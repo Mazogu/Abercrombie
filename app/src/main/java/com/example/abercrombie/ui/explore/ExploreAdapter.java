@@ -115,12 +115,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreH
     }
 
     class ExploreHolder extends RecyclerView.ViewHolder{
-        private ImageView image;
-        private TextView topDescription;
-        private TextView title;
-        private TextView promo;
-        private TextView bottomDescription;
-        private LinearLayout content;
+        ImageView image;
+        TextView topDescription;
+        TextView title;
+        TextView promo;
+        TextView bottomDescription;
+        LinearLayout content;
 
         public ExploreHolder(@NonNull View itemView) {
             super(itemView);

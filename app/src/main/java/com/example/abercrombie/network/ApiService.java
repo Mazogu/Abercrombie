@@ -26,6 +26,9 @@ public class ApiService {
     }
 
 
+    /**
+     * Uses an observer to get emitted list to display and returns it to the fragment.
+     */
     public void requestData(){
         service.getExploratives().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

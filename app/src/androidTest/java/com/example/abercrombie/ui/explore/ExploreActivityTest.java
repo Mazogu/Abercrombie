@@ -1,9 +1,10 @@
-package com.example.abercrombie;
+package com.example.abercrombie.ui.explore;
 
 import android.content.Intent;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.Fragment;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
 import com.example.abercrombie.ui.explore.ExploreActivity;
 

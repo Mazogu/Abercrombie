@@ -33,9 +33,7 @@ public class ExplorePresenter implements EPresenter, ApiCallBack {
     @Override
     public void detachView() { this.view = null; }
 
-    /**
-     * Uses an observer to get emitted list to display and returns it to the fragment.
-     */
+
     @Override
     public void getCards() {
         if(service == null)
