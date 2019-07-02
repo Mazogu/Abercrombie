@@ -15,14 +15,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ApiService {
 
-    @Inject
     RetrofitHelper.RetrofitService service;
+
+    public ApiService(RetrofitHelper.RetrofitService service){
+        this.service = service;
+    }
 
     ApiCallBack callBack;
 
-    public void setCallBack(ApiCallBack source, AppComponent component){
+    public void setCallBack(ApiCallBack source){
         callBack = source;
-        component.inject(this);
     }
 
 

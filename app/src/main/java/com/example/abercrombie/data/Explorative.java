@@ -1,11 +1,14 @@
 
 package com.example.abercrombie.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Explorative {
+public class Explorative{
 
     @SerializedName("title")
     @Expose
@@ -25,6 +28,8 @@ public class Explorative {
     @SerializedName("bottomDescription")
     @Expose
     private String bottomDescription;
+
+
 
     public String getTitle() {
         return title;
@@ -73,5 +78,4 @@ public class Explorative {
     public void setBottomDescription(String bottomDescription) {
         this.bottomDescription = bottomDescription;
     }
-
 }

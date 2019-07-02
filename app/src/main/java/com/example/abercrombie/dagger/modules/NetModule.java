@@ -25,5 +25,5 @@ public class NetModule {
 
     @Provides
     @Singleton
-    ApiService providesApiService(){return new ApiService();}
+    ApiService providesApiService(RetrofitHelper.RetrofitService service){return new ApiService(service);}
 }

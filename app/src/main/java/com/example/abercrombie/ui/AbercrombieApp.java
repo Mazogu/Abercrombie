@@ -8,14 +8,13 @@ import com.example.abercrombie.dagger.modules.ExploreModule;
 import com.example.abercrombie.dagger.modules.NetModule;
 
 public class AbercrombieApp extends Application {
+
     private AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent.builder().exploreModule(new ExploreModule())
-                .netModule(new NetModule("https://www.abercrombie.com/"))
-                .build();
+        appComponent = DaggerAppComponent.builder().netModule(new NetModule("https://www.abercrombie.com/")).build();
     }
 
     public AppComponent getAppComponent() {

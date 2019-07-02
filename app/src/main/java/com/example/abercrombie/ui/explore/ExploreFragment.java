@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.abercrombie.R;
 import com.example.abercrombie.dagger.components.AppComponent;
+import com.example.abercrombie.dagger.modules.ExploreModule;
 import com.example.abercrombie.data.Explorative;
 import com.example.abercrombie.ui.AbercrombieApp;
 
@@ -35,7 +36,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getAppComponent().inject(this);
+        getAppComponent().newExploreComponent(new ExploreModule(this)).inject(this);
     }
 
     @Nullable
@@ -70,8 +71,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public AppComponent getAppComponent() {
+    private AppComponent getAppComponent() {
         return ((AbercrombieApp)getActivity().getApplication()).getAppComponent();
     }
 

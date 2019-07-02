@@ -11,12 +11,12 @@ public class ExplorePresenter implements EPresenter, ApiCallBack {
 
     private EView view;
 
-    @Inject
-    ApiService service;
+    private ApiService service;
 
 
-    public ExplorePresenter(){
-
+    public ExplorePresenter(EView view, ApiService service){
+        this.view = view;
+        this.service = service;
     }
 
     /**
@@ -26,8 +26,7 @@ public class ExplorePresenter implements EPresenter, ApiCallBack {
     @Override
     public void attachView(EView view) {
         this.view = view;
-        view.getAppComponent().inject(this);
-        service.setCallBack(this,view.getAppComponent());
+        service.setCallBack(this);
     }
 
     @Override
