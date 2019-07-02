@@ -4,6 +4,9 @@ package com.example.abercrombie.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Sub Pojo class.
+ */
 public class Content {
 
     @SerializedName("target")

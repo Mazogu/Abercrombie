@@ -27,12 +27,18 @@ public class ExplorePresenterTest {
 
     @InjectMocks ExplorePresenter presenter;
 
+    /**
+     * Verify that ApiService's "requestData" is called.
+     */
     @Test
     public void getCards(){
         presenter.getCards();
         Mockito.verify(service).requestData();
     }
 
+    /**
+     * Verify that the view's "sendResult" is called.
+     */
     @Test
     public void sendResult(){
         List<Explorative> list = Mockito.mock(List.class);
@@ -40,6 +46,9 @@ public class ExplorePresenterTest {
         verify(view).sendResult(list);
     }
 
+    /**
+     * Attempts to send a null result.
+     */
     @Test
     public void sendNullResult(){
         List<Explorative> list = null;

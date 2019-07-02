@@ -8,6 +8,10 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
+/**
+ * POJO class to consume JSON string. Acquired from Abercrombie API call.
+ */
 public class Explorative{
 
     @SerializedName("title")

@@ -8,9 +8,16 @@ import java.util.List;
 
 public interface ExploreContract {
     interface EView extends BaseView{
+        /**
+         * Sends list of Exploratives to the view.
+         * @param list
+         */
         void sendResult(List<Explorative> list);
     }
     interface EPresenter extends BasePresenter<EView>{
+        /**
+         * Starts api call.
+         */
         void getCards();
     }
 }

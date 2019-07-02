@@ -48,6 +48,9 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
         return view;
     }
 
+    /**
+     * Gives the presenter an instance of the view and starts the RESTful call.
+     */
     protected void makeRestCall() {
         if(presenter != null){
             presenter.attachView(this);
@@ -62,15 +65,11 @@ public class ExploreFragment extends Fragment implements ExploreContract.EView {
         super.onDestroy();
     }
 
-    /**
-     * Called from presenter shows sent string.
-     * @param s Message to show.
-     */
-    @Override
-    public void showError(String s) {
-        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-    }
 
+    /**
+     * A getter for the application component.
+     * @return the built AppComponent
+     */
     private AppComponent getAppComponent() {
         return ((AbercrombieApp)getActivity().getApplication()).getAppComponent();
     }

@@ -10,6 +10,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Provides the necessary presenter.
+ */
 @Module
 public class ExploreModule {
 
@@ -19,6 +22,11 @@ public class ExploreModule {
         this.view = view;
     }
 
+    /**
+     * Injects an instance of ApiService to provide the presenter for the view.
+     * @param service
+     * @return
+     */
     @Provides
     @ExploreScope
     ExploreContract.EPresenter providesPresenter(ApiService service){

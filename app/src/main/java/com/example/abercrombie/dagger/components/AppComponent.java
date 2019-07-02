@@ -9,11 +9,25 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
+/**
+ * Component for main application scope.
+ */
 @Singleton
 @Component(modules = {NetModule.class})
 public interface AppComponent {
 
+
+    /**
+     * Provides injection to application.
+     * @param app
+     */
     void inject(AbercrombieApp app);
+
+    /**
+     * Creates the Explore Subcomponent.
+     * @param exploreModule
+     * @return
+     */
     ExploreComponent newExploreComponent(ExploreModule exploreModule);
 
 }

@@ -40,6 +40,9 @@ public class ExploreAdapterTest {
 
     }
 
+    /**
+     * Attempts to call onBind on a single Explorative.
+     */
     @Test
     public void singleEntryOnBindTest(){
         ExploreAdapter.ExploreHolder viewHolder = mock(ExploreAdapter.ExploreHolder.class);
@@ -62,6 +65,9 @@ public class ExploreAdapterTest {
 
     }
 
+    /**
+     * Calls onBind for multiple Exploratives.
+     */
     @Test
     public void multipleExplorativesTest(){
         String titleOne = "Taco";

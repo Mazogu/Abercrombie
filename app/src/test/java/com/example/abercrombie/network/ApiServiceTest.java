@@ -3,12 +3,14 @@ package com.example.abercrombie.network;
 import com.example.abercrombie.data.Explorative;
 import com.example.abercrombie.network.retrofit.RetrofitHelper;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
@@ -30,7 +32,6 @@ public class ApiServiceTest {
     @Mock
     RetrofitHelper.RetrofitService service;
 
-    @InjectMocks
     ApiService apiService;
 
     @BeforeClass
@@ -43,7 +44,17 @@ public class ApiServiceTest {
         });
     }
 
+    @Before
+    public void setMocks(){
+        MockitoAnnotations.initMocks(this);
+        apiService = new ApiService(service);
+        apiService.setCallBack(callBack);
+    }
 
+
+    /**
+     * Tests the emission of an empty list.
+     */
     @Test
     public void testEmptyEmission(){
         Mockito.when(service.getExploratives()).thenReturn(Observable.just(Collections.<Explorative>emptyList()));
@@ -51,6 +62,9 @@ public class ApiServiceTest {
         Mockito.verify(callBack).sendData(Collections.<Explorative>emptyList());
     }
 
+    /**
+     * Test the emission of a list with things in it.
+     */
     @Test
     public void listEmission(){
         List<Explorative> list =  Mockito.mock(List.class);

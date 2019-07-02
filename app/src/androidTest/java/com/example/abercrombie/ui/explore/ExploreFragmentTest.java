@@ -56,6 +56,9 @@ public class ExploreFragmentTest {
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
     }
 
+    /**
+     * Tests if the specified title is shown.
+     */
     @Test
     public void testTitle(){
         String title = "Potatoes";
@@ -77,6 +80,9 @@ public class ExploreFragmentTest {
         onView(withId(R.id.moreContent)).check(matches(not(isDisplayed())));
     }
 
+    /**
+     * Test if all of the elements of the content list appear.
+     */
     @Test
     public void testContent(){
         Explorative explorative = new Explorative();

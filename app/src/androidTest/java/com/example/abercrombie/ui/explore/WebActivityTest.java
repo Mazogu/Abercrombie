@@ -20,6 +20,9 @@ public class WebActivityTest {
     ActivityTestRule<WebActivity> rule = new ActivityTestRule<>(WebActivity.class);
 
 
+    /**
+     * Attempts to give the url of a website to the WebActivity.
+     */
     @Test
     public void googleIntentTest(){
         final String google = "https://www.google.com/";
@@ -36,6 +39,9 @@ public class WebActivityTest {
     }
 
 
+    /**
+     * Launches web activity without an intent.
+     */
     @Test
     public void nullIntentTest(){
         WebActivity webActivity = rule.launchActivity(null);
@@ -48,6 +54,9 @@ public class WebActivityTest {
         });
     }
 
+    /**
+     * Tests with an empty implicit intent.
+     */
     @Test
     public void emptyIntentTest(){
         WebActivity webActivity = rule.launchActivity(new Intent());
@@ -60,6 +69,9 @@ public class WebActivityTest {
         });
     }
 
+    /**
+     * Gives the web activity an empty string.
+     */
     @Test
     public void emptyStringTest(){
         Intent intent = new Intent();
